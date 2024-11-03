@@ -1,4 +1,5 @@
 const { Evaluation, Feedback, Employee } = require("../../db");
+const { findById } = require("../../models/Employee");
 
 const createEvaluation = async (evaluationInfo, targetEmployeeEmail) => {
   try {
@@ -11,7 +12,7 @@ const createEvaluation = async (evaluationInfo, targetEmployeeEmail) => {
     if (!answer1 || !answer2 || !answer3 || !answer4 || !answer5 || !feedback)
       return { answer: "There's missing information" };
 
-    const verifyEmail = await Employee.find({ email: targetEmployeeEmail });
+    const verifyEmail = await Employee.findOne({ email: targetEmployeeEmail });
 
     if (!verifyEmail)
       return {
@@ -35,10 +36,12 @@ const createEvaluation = async (evaluationInfo, targetEmployeeEmail) => {
     if (!newEvaluation)
       return { answer: "Problems saving Evaluation, try again later." };
     await newEvaluation.save();
-
+    const completeEvaluation = await findById(newEvaluation._id)
+      .populate({ path: "employee", select: "name lastName role position" })
+      .populate({ path: "feedback", select: "message" });
     return {
       answer: "Evaluation succesfully created and saved",
-      info: newEvaluation,
+      info: completeEvaluation,
     };
   } catch (error) {
     return { error: error.message };
