@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
         },
         message: props=> `${props.value} is not valid for an email.`
     }
+    },
+    employee: {
+        type: mongoose.Schema.Types.ObjectId, ref:"Employee"
     }
 })
 

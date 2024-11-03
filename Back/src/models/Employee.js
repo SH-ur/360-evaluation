@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    job: {
+    position: {
         type: String,
         required: true
     },
@@ -17,7 +17,8 @@ const employeeSchema = new mongoose.Schema({
         type: String,
         enum:["Employee", "Manager", "Admin"],
         default: "Employee"
-    }
+    },
+    evaluations: [{type: mongoose.Schema.Types.ObjectId, ref:"Evaluation"}]
 })
 
 const employeeModel = mongoose.model("Employee", employeeSchema);
