@@ -21,15 +21,19 @@ const connectDB = async () => {
 // Definir modelos
 // Puedes importar tus modelos directamente aquí o requerir archivos desde un directorio 'models'
 const Employee = require('./models/Employee');
-const Genre = require('./models/Genre');
+const User = require('./models/User');
+const Feedback = require("./models/Feedback");
+const Evaluation = require("./models/Evaluation")
 
 // Relaciones (en MongoDB, las relaciones no funcionan como en SQL; en lugar de eso, puedes usar referencias)
-Videogame.schema.add({ genres: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre' }] });
-Genre.schema.add({ videogames: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Videogame' }] });
+//Videogame.schema.add({ genres: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre' }] });
+//Genre.schema.add({ videogames: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Videogame' }] });
 
 // Exportar los modelos y la conexión
 module.exports = {
   connectDB, // función para conectar a la base de datos
-  Videogame,
-  Genre,
+  Employee,
+  User,
+  Evaluation,
+  Feedback
 };
