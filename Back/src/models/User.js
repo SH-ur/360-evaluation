@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "An email is needed for this BD."],
+        required: [true, "An email is needed for this DB."],
         validate:{
         validator: function(v){
             return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(v);

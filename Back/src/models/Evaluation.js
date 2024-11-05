@@ -1,12 +1,15 @@
 const mongoose =  require("mongoose");
 
 const evaluationSchema = new mongoose.Schema({
-    answer1: {type: mongoose.Number, set: v=>mongoose.Types.Decimal128.fromString(v.toFixed(2)), get: v=> parseFloat(v.toString()).toFixed(2), required: true},
-    answer2: {type: mongoose.Number, set: v=>mongoose.Types.Decimal128.fromString(v.toFixed(2)), get: v=> parseFloat(v.toString()).toFixed(2), required: true},
-    answer3: {type: mongoose.Number, set: v=>mongoose.Types.Decimal128.fromString(v.toFixed(2)), get: v=> parseFloat(v.toString()).toFixed(2), required: true},
-    answer4: {type: mongoose.Number, set: v=>mongoose.Types.Decimal128.fromString(v.toFixed(2)), get: v=> parseFloat(v.toString()).toFixed(2), required: true},
-    answer5: {type: mongoose.Number, set: v=>mongoose.Types.Decimal128.fromString(v.toFixed(2)), get: v=> parseFloat(v.toString()).toFixed(2), required: true},
-    employee: [{type: mongoose.Schema.Types.ObjectId, ref: "Employee"}],
+    name: {type: String, required: true, default:"Evaluación 360 Mensual"},
+    questions: [String],
+    answer1: {type: Number, required: true, max: [10, "You can't rate more than 10 stars"], min: [1, "You can't rate with 0."]},
+    answer2: {type: Number, required: true, max: [10, "You can't rate more than 10 stars"], min: [1, "You can't rate with 0."]},
+    answer3: {type: Number, required: true, max: [10, "You can't rate more than 10 stars"], min: [1, "You can't rate with 0."]},
+    answer4: {type: Number, required: true, max: [10, "You can't rate more than 10 stars"], min: [1, "You can't rate with 0."]},
+    answer5: {type: Number, required: true, max: [10, "You can't rate more than 10 stars"], min: [1, "You can't rate with 0."]},
+    fromEmployee: {type: mongoose.Schema.Types.ObjectId, ref: "Employee"},
+    toEmployee: {type: mongoose.Schema.Types.ObjectId, ref:"Employee"},
     feedback: {type: mongoose.Schema.Types.ObjectId, ref:"Feedback"}
 })
 
