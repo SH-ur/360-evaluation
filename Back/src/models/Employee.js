@@ -18,7 +18,8 @@ const employeeSchema = new mongoose.Schema({
         enum:["Employee", "Manager", "Admin"],
         default: "Employee"
     },
-    evaluations: [{type: mongoose.Schema.Types.ObjectId, ref:"Evaluation"}]
+    evaluations: [{type: mongoose.Schema.Types.ObjectId, ref:"Evaluation"}],
+    user: {type: mongoose.Schema.Types.ObjectId, ref:"User"}
 })
 
 const employeeModel = mongoose.model("Employee", employeeSchema);

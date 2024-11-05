@@ -39,7 +39,6 @@ const registerController = async (newUser, newEmployee) => {
 
     const hashed = await bcrypt.hash(password, 10);
     const employee = await Employee.create(newEmployee);
-    await employee.save();
     if (!employee)
       return { answer: "Something went wrong linking employee data." };
     const user = await User.create({
@@ -48,11 +47,14 @@ const registerController = async (newUser, newEmployee) => {
       employee: employee._id,
     });
     await user.save();
-
+    //A good mousetool
+    employee.user = user._id;
+    await employee.save();
     const userComplete = await User.findById(user._id).populate({
       path: "employee",
       select: "name lastName role position",
     });
+
     return { answer: "Successfully created!", user: userComplete };
   } catch (error) {
     return { error: error.message };
